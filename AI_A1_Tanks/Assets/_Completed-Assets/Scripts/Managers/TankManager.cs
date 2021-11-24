@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace Complete
 {
@@ -23,6 +24,7 @@ namespace Complete
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
+        public GameObject m_Enemy;
 
         public void Setup ()
         {
@@ -78,6 +80,16 @@ namespace Complete
 
             m_Instance.SetActive (false);
             m_Instance.SetActive (true);
+        }
+
+        public void AddConstraint(Transform transform)
+        {
+            ConstraintSource source = new ConstraintSource();
+
+            source.sourceTransform = transform;
+            source.weight = 1;
+
+            m_Shooting.m_Constraint.AddSource(source);
         }
     }
 }

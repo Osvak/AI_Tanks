@@ -22,7 +22,6 @@ namespace Complete
         private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
         private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
 
-
         const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
 
         
@@ -54,6 +53,11 @@ namespace Complete
                 m_Tanks[i].m_PlayerNumber = i + 1;
                 m_Tanks[i].Setup();
             }
+            m_Tanks[0].m_Enemy = m_Tanks[1].m_Instance;
+            m_Tanks[1].m_Enemy = m_Tanks[0].m_Instance;
+
+            m_Tanks[0].AddConstraint(m_Tanks[0].m_Enemy.transform);
+            m_Tanks[1].AddConstraint(m_Tanks[1].m_Enemy.transform);
         }
 
 

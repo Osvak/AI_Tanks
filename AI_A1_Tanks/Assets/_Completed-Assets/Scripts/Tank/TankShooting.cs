@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 
 namespace Complete
 {
@@ -18,6 +19,8 @@ namespace Complete
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
 
         public float m_Angle;
+
+        public LookAtConstraint m_Constraint;
 
         private void Start ()
         {
