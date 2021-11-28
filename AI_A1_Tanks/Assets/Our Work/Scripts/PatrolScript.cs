@@ -20,7 +20,7 @@ public class PatrolScript : MonoBehaviour
     void Update()
     {
 
-        if (Vector3.Distance(transform.position, waypoints[wpIndex].transform.position) < 2)
+        if (Vector3.Distance(transform.position, waypoints[wpIndex].transform.position) < 1)
         {
             wpIndex++;
             if (wpIndex == waypoints.Length) wpIndex = 0;
