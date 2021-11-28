@@ -14,13 +14,14 @@ namespace Complete
         public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
-
         
         private int m_RoundNumber;                  // Which round the game is currently on.
         private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
         private WaitForSeconds m_EndWait;           // Used to have a delay whilst the round or game ends.
         private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
         private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
+
+        public GameObject[] m_Waypoints;
 
         const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
 
@@ -52,6 +53,15 @@ namespace Complete
                     Instantiate(m_TankPrefab, m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
                 m_Tanks[i].m_PlayerNumber = i + 1;
                 m_Tanks[i].Setup();
+
+                if (m_Tanks[i].typeWander) m_Tanks[i].m_Instance.GetComponent<WanderScript>().enabled = true;
+                else if (m_Tanks[i].typePatrol)
+                {
+                    PatrolScript patrolScript = new PatrolScript();
+                    patrolScript = m_Tanks[i].m_Instance.GetComponent<PatrolScript>();
+                    m_Tanks[i].m_Instance.GetComponent<PatrolScript>().enabled = true;
+                    patrolScript.waypoints = m_Waypoints;
+                }
             }
             m_Tanks[0].m_Enemy = m_Tanks[1].m_Instance;
             m_Tanks[1].m_Enemy = m_Tanks[0].m_Instance;

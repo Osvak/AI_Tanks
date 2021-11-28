@@ -26,6 +26,10 @@ namespace Complete
 
         public GameObject m_Enemy;
 
+
+        public bool typeWander;
+        public bool typePatrol;
+
         public void Setup ()
         {
             // Get references to the components.
