@@ -69,6 +69,13 @@ namespace Complete
             m_Tanks[0].AddEnemy();
             m_Tanks[1].AddEnemy();
 
+            m_Tanks[0].m_Base = m_Tanks[0].m_SpawnPoint;
+            m_Tanks[1].m_Base = m_Tanks[1].m_SpawnPoint;
+
+            m_Tanks[0].AddBase();
+            m_Tanks[1].AddBase();
+
+
             m_Tanks[0].AddConstraint(m_Tanks[0].m_Enemy.transform);
             m_Tanks[1].AddConstraint(m_Tanks[1].m_Enemy.transform);
         }

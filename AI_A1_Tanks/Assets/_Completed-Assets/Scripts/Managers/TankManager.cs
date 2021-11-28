@@ -26,6 +26,8 @@ namespace Complete
 
         public GameObject m_Enemy;
 
+        public Transform m_Base;
+
 
         public bool typeWander;
         public bool typePatrol;
@@ -99,6 +101,17 @@ namespace Complete
         public void AddEnemy()
         {
             m_Shooting.m_Enemy = m_Enemy;
+        }
+
+        public void AddBase()
+        {
+            m_Shooting.m_base = m_Base;
+        }
+
+        public void PassType()
+        {
+            m_Shooting.typePatrol = typePatrol;
+            m_Shooting.typeWander = typeWander;
         }
     }
 }

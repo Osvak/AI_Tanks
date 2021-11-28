@@ -15,14 +15,17 @@ namespace Complete
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
         public float m_LaunchForce = 50f;        // The force given target the shell if the fire buttargetn is not held.
 
+        public bool typeWander;
+        public bool typePatrol;
+
         private string m_FireButton;                // The input axis that is used for launching shells.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         private bool m_Fired;                       // Whether or not the shell has been launched with this buttargetn press.
-        private float m_cooldown = 2;
+        private float m_cooldown = 8;
 
         public NavMeshAgent agent;
 
-        public GameObject m_base;
+        public Transform m_base;
 
         public float m_Angle;
 
@@ -34,6 +37,7 @@ namespace Complete
 
         private void Start ()
         {
+            agent = GetComponent<NavMeshAgent>();
             // The fire axis is based on the player number.
             m_FireButton = "Fire" + m_PlayerNumber;
 
@@ -52,18 +56,18 @@ namespace Complete
                     Fire();
                     m_Ammo--;
                 }
-
-                //if (Input.GetKeyDown("space"))
-                //{
-                //    Fire();
-                //}
             }
 
             if( m_Fired && m_cooldown < 0)
             {
                 m_Fired = false;
-                m_cooldown = 2;
+                m_cooldown = 8;
 
+            }
+
+            if(m_Ammo == 0)
+            {
+                Reload();
             }
               
         }
@@ -112,7 +116,25 @@ namespace Complete
 
         public void Reload()
         {
+            GetComponent<PatrolScript>().enabled = false;
+            GetComponent<WanderScript>().enabled = false;
+            agent.SetDestination(m_base.transform.position);
 
+            if(Vector3.Distance(m_FireTransform.position, m_base.transform.position) < 5)
+            {
+                m_Ammo = 5;
+
+                if (typePatrol == true)
+                {
+                    GetComponent<PatrolScript>().enabled = true;
+                    GetComponent<WanderScript>().enabled = false;
+                }
+                else if(typeWander == true)
+                {
+                    GetComponent<PatrolScript>().enabled = false;
+                    GetComponent<WanderScript>().enabled = true;
+                }
+            }
         }
     }
 }
