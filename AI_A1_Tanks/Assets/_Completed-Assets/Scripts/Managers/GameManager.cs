@@ -66,6 +66,9 @@ namespace Complete
             m_Tanks[0].m_Enemy = m_Tanks[1].m_Instance;
             m_Tanks[1].m_Enemy = m_Tanks[0].m_Instance;
 
+            m_Tanks[0].AddEnemy();
+            m_Tanks[1].AddEnemy();
+
             m_Tanks[0].AddConstraint(m_Tanks[0].m_Enemy.transform);
             m_Tanks[1].AddConstraint(m_Tanks[1].m_Enemy.transform);
         }

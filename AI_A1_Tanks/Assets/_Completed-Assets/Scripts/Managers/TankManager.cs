@@ -95,5 +95,10 @@ namespace Complete
 
             m_Shooting.m_Constraint.AddSource(source);
         }
+
+        public void AddEnemy()
+        {
+            m_Shooting.m_Enemy = m_Enemy;
+        }
     }
 }

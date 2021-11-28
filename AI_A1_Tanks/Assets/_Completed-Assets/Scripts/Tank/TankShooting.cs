@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Animations;
+using UnityEngine.AI;
 
 namespace Complete
 {
@@ -12,12 +13,16 @@ namespace Complete
         public AudioSource m_ShootingAudio;         // Reference target the audio source used target play the shooting audio. NB: different target the movement audio source.
         public AudioClip m_ChargingClip;            // Audio that plays when each shot is charging up.
         public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
-        public float m_LaunchForce = 250f;        // The force given target the shell if the fire buttargetn is not held.
+        public float m_LaunchForce = 50f;        // The force given target the shell if the fire buttargetn is not held.
 
         private string m_FireButton;                // The input axis that is used for launching shells.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         private bool m_Fired;                       // Whether or not the shell has been launched with this buttargetn press.
         private float m_cooldown = 2;
+
+        public NavMeshAgent agent;
+
+        public GameObject m_base;
 
         public float m_Angle;
 
@@ -42,16 +47,16 @@ namespace Complete
 
             if (m_Fired == false && m_Ammo > 0)
             {
-                //if (canShoot(out m_Angle))
-                //{
-                //    Fire();
-                //    m_Ammo--;
-                //}
-
-                if (Input.GetKeyDown("space"))
+                if (canShoot(out m_Angle))
                 {
                     Fire();
+                    m_Ammo--;
                 }
+
+                //if (Input.GetKeyDown("space"))
+                //{
+                //    Fire();
+                //}
             }
 
             if( m_Fired && m_cooldown < 0)
@@ -103,6 +108,11 @@ namespace Complete
             angle = Mathf.Atan((Mathf.Pow(vel,2) - Mathf.Sqrt(sqrt)) / (g * finalX));
 
             return ret;
+        }
+
+        public void Reload()
+        {
+
         }
     }
 }
