@@ -14,8 +14,6 @@ public class WanderScript : MonoBehaviour
     {
         Wander();
     }
-
-    Vector3 wanderTarget = Vector3.zero;
     void Wander()
     {
         float radius = 2f;
@@ -29,5 +27,6 @@ public class WanderScript : MonoBehaviour
         Vector3 worldTarget =
             transform.TransformPoint(localTarget);
         worldTarget.y = 0f;
+        agent.SetDestination(worldTarget);
     }
 }
